@@ -114,7 +114,7 @@
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.10s ease;
 }
 
 .slider-dot.active {
@@ -223,16 +223,151 @@
     transition-delay: 0.9s;
 }
 
-/* Services Card */
-/* Make the card links behave like blocks */
-.card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+.button-color{
+   background: linear-gradient(90deg, #805AF5 0%, #CE99FF 100%);
 }
 
-/* Optional: Add hover effect */
-.card-link:hover {
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
-}
+
+/* Search bar and pagination  */
+ .blog-posts-area {
+            padding: 60px 0;
+        }
+        
+        .blog-post-item {
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+        }
+        
+        .blog-post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .blog-post-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-post-content {
+            padding: 20px;
+        }
+        
+        .blog-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .blog-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .blog-title a:hover {
+            color: #6c5ce7;
+        }
+        
+        .blog-excerpt {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .read-more {
+            color: #6c5ce7;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #5649c0;
+            text-decoration: underline;
+        }
+        
+        /* Pagination Styles */
+        .pagination-area {
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .pagination li {
+            margin: 0 5px;
+        }
+        
+        .pagination li a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination li a:hover,
+        .pagination li.active a {
+            background: #6c5ce7;
+            color: #fff;
+        }
+        
+        /* Blog Search Styles */
+        .blog-search {
+            margin-bottom: 40px;
+        }
+        
+        .blog-search .form-control {
+            height: 50px;
+            border-radius: 30px 0 0 30px;
+            border-right: none;
+            box-shadow: none;
+        }
+        
+        .blog-search .btn-primary {
+            border-radius: 0 30px 30px 0;
+            padding: 0 20px;
+            background: #6c5ce7;
+            border-color: #6c5ce7;
+        }
+        
+        .blog-search .btn-primary:hover {
+            background: #5649c0;
+            border-color: #5649c0;
+        }
+        
+        /* Dark Mode Adjustments */
+        [data-theme="dark"] .blog-post-item {
+            background: #2a2a2a;
+        }
+        
+        [data-theme="dark"] .blog-title a {
+            color: #f5f5f5;
+        }
+        
+        [data-theme="dark"] .blog-excerpt {
+            color: #b0b0b0;
+        }
+        
+        [data-theme="dark"] .pagination li a {
+            background: #3a3a3a;
+            color: #f5f5f5;
+        }
