@@ -10339,7 +10339,7 @@ xclip
 }
 .mainmenu-nav .mainmenu li.has-dropdown .submenu li a.active {
   color: var(--color-heading) !important;
-  background: var(--color-darker);
+  /* background: var(--color-darker); */
 }
 .mainmenu-nav .mainmenu li.has-dropdown:hover .submenu {
   opacity: 1;
