@@ -22,6 +22,907 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+     <style>
+        :root {
+            --color-primary: #6C4DF6;
+            --color-primary-light: #8A6DF7;
+            --color-primary-dark: #5A3DDE;
+            --color-secondary: #FF6B6B;
+            --color-white: #FFFFFF;
+            --color-light: #F8F9FA;
+            --color-gray: #ADB5BD;
+            --color-dark: #343A40;
+            --color-darker: #212529;
+            --color-blackest: #121212;
+            --color-border: #2D2D2D;
+            --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            --box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            --box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Premium Subscription - Super Premium Design */
+        .premium-section {
+            padding: 120px 0;
+            background: var(--color-blackest);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 77, 246, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
+            z-index: 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--color-white), var(--color-primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--color-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Pricing Tabs */
+        .pricing-tabs {
+            display: inline-flex;
+            background: var(--color-darker);
+            border-radius: 50px;
+            padding: 8px;
+            margin-bottom: 60px;
+            border: 1px solid var(--color-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-tab {
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            border-radius: 50px;
+            color: var(--color-gray);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-tab.active {
+            color: var(--color-white);
+        }
+
+        .pricing-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 50px;
+            z-index: -1;
+            box-shadow: 0 4px 15px rgba(108, 77, 246, 0.3);
+        }
+
+        /* Pricing Cards */
+        .pricing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-card {
+            background: var(--color-darker);
+            border-radius: 20px;
+            padding: 50px 40px;
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            width: 100%;
+            max-width: 360px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--color-primary);
+            transform: scale(1.02);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 6px 40px;
+            transform: rotate(45deg);
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .pricing-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--color-white);
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--color-white);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .pricing-price span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-gray);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--color-gray);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pricing-features {
+            margin: 40px 0;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            color: var(--color-light);
+            position: relative;
+            padding-left: 35px;
+            font-size: 1.05rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li:before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--color-primary);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            font-size: 1rem;
+        }
+
+        .pricing-button {
+            text-align: center;
+        }
+
+        .btn-premium {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(108, 77, 246, 0.3);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 77, 246, 0.4);
+            background: var(--gradient-primary);
+        }
+
+        .btn-outline-premium {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            color: var(--color-white);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--color-primary);
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .btn-outline-premium:hover {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Features Comparison */
+        .features-section {
+            padding: 100px 0;
+            background: var(--color-blackest);
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-primary), transparent);
+        }
+
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+            background: var(--color-darker);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .feature-table th, .feature-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .feature-table th {
+            background: rgba(108, 77, 246, 0.1);
+            color: var(--color-white);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .feature-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-table td:first-child {
+            font-weight: 600;
+            color: var(--color-white);
+        }
+
+        .feature-check {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+
+        .feature-x {
+            color: var(--color-secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 100px 0;
+            background: var(--color-blackest);
+            position: relative;
+        }
+
+        .testimonial-slider {
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: var(--color-darker);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 15px;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            position: relative;
+            box-shadow: var(--box-shadow);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(108, 77, 246, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 30px;
+            color: var(--color-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 20px;
+            object-fit: cover;
+            border: 3px solid var(--color-primary);
+        }
+
+        .author-info h5 {
+            margin: 0;
+            color: var(--color-white);
+            font-weight: 700;
+        }
+
+        .author-info p {
+            margin: 5px 0 0;
+            color: var(--color-gray);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+            background: var(--color-blackest);
+            position: relative;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--color-darker);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--color-primary);
+        }
+
+        .faq-question {
+            background: var(--color-darker);
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            color: var(--color-white);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: var(--transition);
+            color: var(--color-primary);
+        }
+
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            background: var(--color-blackest);
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-answer.show {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: var(--color-gray);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/patterns/dot-pattern.png') center/cover;
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--color-white);
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--color-white);
+            color: var(--color-primary);
+            border-radius: 50px;
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            color: var(--color-primary-dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1199px) {
+            .section-header h2 {
+                font-size: 3rem;
+            }
+            
+            .pricing-card {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .premium-section, .features-section, .testimonials-section, .faq-section {
+                padding: 80px 0;
+            }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                max-width: 100%;
+            }
+            
+            .feature-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .premium-section, .features-section, .testimonials-section, .faq-section {
+                padding: 60px 0;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .section-header p {
+                font-size: 1rem;
+            }
+            
+            .pricing-tabs {
+                flex-direction: column;
+                border-radius: 15px;
+                padding: 5px;
+            }
+            
+            .pricing-tab {
+                width: 100%;
+                text-align: center;
+                border-radius: 10px;
+                margin: 5px 0;
+            }
+            
+            .pricing-price {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-features li {
+                font-size: 1rem;
+                padding-left: 30px;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-card {
+                padding: 30px 20px;
+            }
+            
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .btn-premium, .btn-outline-premium {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+        /* Product Overview Section */
+        .product-overview {
+            padding: 100px 0;
+            background: var(--color-blackest);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-overview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(108, 77, 246, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
+            z-index: 0;
+        }
+
+        .product-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-images {
+            flex: 1;
+            position: relative;
+        }
+
+        .main-product-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--color-primary);
+            transform: translateY(-5px);
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--color-white);
+            line-height: 1.2;
+        }
+
+        .product-description {
+            color: var(--color-gray);
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .product-features {
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .feature-icon i {
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .feature-text {
+            color: var(--color-light);
+            line-height: 1.6;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Responsive Design for Product Overview */
+        @media (max-width: 991px) {
+            .product-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .product-images, .product-details {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        /* Related Products Section */
+        .related-products {
+            padding: 100px 0;
+            background: var(--color-blackest);
+            position: relative;
+        }
+
+        .related-products::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-primary), transparent);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: var(--color-darker);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--box-shadow);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-category {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-excerpt {
+            color: var(--color-gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            color: var(--color-gray);
+            font-weight: 400;
+        }
+
+        .view-product {
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .view-product i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .view-product:hover {
+            color: var(--color-primary-light);
+        }
+
+        .view-product:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Responsive Design for Related Products */
+        @media (max-width: 767px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 575px) {
+            .related-products {
+                padding: 60px 0;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+       
 </head>
 
 <body>
@@ -137,7 +1038,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-dropdown has-menu-child-item position-relative"><a href="#">Service<i class="fa-regular fa-chevron-down"></i></a>
+                                <li class="has-dropdown has-menu-child-item position-relative"><a href="services.html">Service<i class="fa-regular fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li>
                                                 <a href="service-detail.html">
@@ -466,10 +1367,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="breadcrumb-inner text-center">
-                                <h3 class="title h3">Products Details</h3>
+                                <h3 class="title h3">Product Details</h3>
                                 <ul class="page-list">
                                     <li class="rainbow-breadcrumb-item"><a href="index-2.html">Home</a></li>
-                                    <li class="rainbow-breadcrumb-item active">Product Details</li>
+                                    <li class="rainbow-breadcrumb-item active">About</li>
                                 </ul>
                             </div>
                         </div>
@@ -477,464 +1378,326 @@
                 </div>
             </div>
             <!-- End Breadcarumb area  -->
-        </div>
-
-           <!-- Moblie Nav -->
-        <div class="popup-mobile-menu">
-            <div class="inner-popup">
-                <div class="header-top">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img class="logo-light" src="assets/images/logo/logo.png" alt="ChatBot Logo">
-                            <img class="logo-dark" src="assets/images/logo/logo.png" alt="ChatBot Logo">
-                        </a>
-                    </div>
-                    <div class="close-menu">
-                        <button class="close-button" aria-label="Close menu">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
-            
-                <div class="content">
-                    <ul class="mainmenu">
-                        <li><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li class="has-dropdown has-menu-child-item position-relative"><a href="#">Products <i class="fa-regular fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li>
-                                            <a href="service-detail.html">
-                                                <span>E-commerce(With App)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="service-detail.html">
-                                                <span>Multi Vendor Ecommerce</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>News Porta</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Blog Site</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Erp</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Inventory Management</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Hrm</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Hotel Management Site</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="product-detail.html">
-                                                <span>Hosting Site</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-dropdown has-menu-child-item position-relative"><a href="#">Service<i class="fa-regular fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li>
-                                                <a href="service-detail.html">
-                                                    <span>Web Design</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="service-detail.html">
-                                                    <span>Web Development</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="product-detail.html">
-                                                    <span>Mobile Application</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="service-detail.html">
-                                                    <span>Development</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="service-detail.html">
-                                                    <span>Desktop Application</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="service-detail.html">
-                                                    <span>Customer Software Solution</span>
-                                                </a>
-                                            </li>
-                                    </ul>
-                                </li>
-                                <li><a href="barnd.html">Brand</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Mobile Nav end -->
-
-                <!-- Start Header Btn  -->
-                <div class="header-btn d-block d-md-none">
-                    <a class="btn-default @@btnClass" target="_blank" href="login.html">Login</a>
-                </div>
-                <!-- End Header Btn  -->
-            </div>
-        </div>
-        <!-- end movile nav -->
-<!-- Product Hero Section -->
-<section class="product-hero">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="product-image">
-                    <img src="https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Multi Vendor Ecommerce">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <span class="badge bg-primary mb-3">E-commerce Solution</span>
-                <h1 class="product-title">Multi Vendor Ecommerce Platform</h1>
-                <p class="product-subtitle">A complete marketplace solution that allows multiple vendors to sell through your platform with ease.</p>
-                
-                <div class="highlight-card">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div>
-                            <span class="price-tag">$1,499</span>
-                            <span class="price-period">one-time payment</span>
-                        </div>
-                        <div>
-                            <span class="badge bg-success p-2"><i class="fas fa-check-circle me-1"></i> In Stock</span>
+        
+        <!-- New Product Overview Section -->
+        <section class="product-overview">
+            <div class="container">
+                <div class="product-container">
+                    <div class="product-images">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Orbit Premium Dashboard" 
+                             class="main-product-image">
+                        <div class="product-thumbnails">
+                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dashboard Preview 1" 
+                                 class="thumbnail active">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dashboard Preview 2" 
+                                 class="thumbnail">
+                            <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dashboard Preview 3" 
+                                 class="thumbnail">
+                            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dashboard Preview 4" 
+                                 class="thumbnail">
                         </div>
                     </div>
-                    
-                    <ul class="feature-list mb-4">
-                        <li><i class="fas fa-check-circle"></i> Unlimited vendors and products</li>
-                        <li><i class="fas fa-check-circle"></i> Secure payment gateway integration</li>
-                        <li><i class="fas fa-check-circle"></i> Vendor dashboard and analytics</li>
-                        <li><i class="fas fa-check-circle"></i> Mobile responsive design</li>
-                    </ul>
-                    
-                    <div class="d-grid gap-3 d-md-flex">
-                        <button class="btn btn-primary btn-custom btn-primary-custom me-md-2">
-                            <i class="fas fa-shopping-cart me-2"></i> Purchase Now
-                        </button>
-                        <button class="btn btn-outline-primary btn-custom btn-outline-custom">
-                            <i class="fas fa-envelope me-2"></i> Request Demo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Product Details Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <h2 class="section-title">Product Details</h2>
-                
-                <!-- Tabs Navigation -->
-                <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab">Key Features</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab">Technical Specs</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab">Support</button>
-                    </li>
-                </ul>
-                
-                <!-- Tabs Content -->
-                <div class="tab-content" id="productTabsContent">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel">
-                        <h4>Complete Marketplace Solution</h4>
-                        <p>Our Multi Vendor Ecommerce Platform is designed to help you launch your own online marketplace where multiple vendors can sell their products through your website. This turnkey solution provides everything you need to start, manage, and grow your e-commerce business.</p>
+                    <div class="product-details">
+                        <span class="product-badge">Premium Subscription</span>
+                        <h1 class="product-title">Orbit Premium Business Solutions</h1>
+                        <p class="product-description">
+                            Orbit Premium is a comprehensive business solution designed to streamline your operations, 
+                            enhance productivity, and drive growth. Our platform combines powerful tools with an 
+                            intuitive interface to give your business the competitive edge it needs in today's 
+                            fast-paced digital landscape.
+                        </p>
                         
-                        <p>The platform includes powerful vendor management tools, allowing you to onboard sellers easily, manage commissions, and monitor performance. Vendors get their own dashboard to manage inventory, orders, and customer interactions.</p>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex">
-                                    <i class="fas fa-bolt text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h5>Fast Performance</h5>
-                                        <p class="mb-0">Optimized for speed with caching and CDN support to handle high traffic volumes.</p>
-                                    </div>
+                        <div class="product-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-rocket"></i>
                                 </div>
+                                <p class="feature-text">
+                                    <strong>Performance Optimized:</strong> Built for speed and reliability with 99.9% uptime guarantee
+                                </p>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex">
-                                    <i class="fas fa-shield-alt text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h5>Secure Transactions</h5>
-                                        <p class="mb-0">PCI compliant with SSL encryption and fraud protection features.</p>
-                                    </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
                                 </div>
+                                <p class="feature-text">
+                                    <strong>Enterprise Security:</strong> Military-grade encryption and regular security audits
+                                </p>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex">
-                                    <i class="fas fa-mobile-alt text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h5>Mobile Optimized</h5>
-                                        <p class="mb-0">Fully responsive design that works perfectly on all devices.</p>
-                                    </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-sync-alt"></i>
                                 </div>
+                                <p class="feature-text">
+                                    <strong>Real-time Sync:</strong> All your data synchronized across devices in real-time
+                                </p>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex">
-                                    <i class="fas fa-chart-line text-primary me-3 mt-1"></i>
-                                    <div>
-                                        <h5>Advanced Analytics</h5>
-                                        <p class="mb-0">Track sales, customer behavior, and vendor performance in real-time.</p>
-                                    </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
                                 </div>
+                                <p class="feature-text">
+                                    <strong>Advanced Analytics:</strong> Powerful insights to drive data-informed decisions
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="features" role="tabpanel">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <h5><i class="fas fa-store me-2 text-primary"></i> Vendor Management</h5>
-                                    <ul>
-                                        <li>Vendor registration and approval system</li>
-                                        <li>Individual vendor dashboards</li>
-                                        <li>Commission rate configuration</li>
-                                        <li>Vendor performance analytics</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <h5><i class="fas fa-shopping-cart me-2 text-primary"></i> Product Management</h5>
-                                    <ul>
-                                        <li>Unlimited product listings</li>
-                                        <li>Product variations and options</li>
-                                        <li>Inventory tracking</li>
-                                        <li>Bulk import/export</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <h5><i class="fas fa-credit-card me-2 text-primary"></i> Payment Processing</h5>
-                                    <ul>
-                                        <li>Multiple payment gateways</li>
-                                        <li>Split payments between admin and vendors</li>
-                                        <li>Secure checkout process</li>
-                                        <li>Recurring payment support</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <h5><i class="fas fa-truck me-2 text-primary"></i> Order Fulfillment</h5>
-                                    <ul>
-                                        <li>Order tracking system</li>
-                                        <li>Shipping integration</li>
-                                        <li>Automated notifications</li>
-                                        <li>Return management</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="specs" role="tabpanel">
-                        <table class="tech-specs">
-                            <tr>
-                                <td>Platform</td>
-                                <td>Web-based SaaS solution</td>
-                            </tr>
-                            <tr>
-                                <td>Technology Stack</td>
-                                <td>PHP, MySQL, JavaScript, HTML5, CSS3</td>
-                            </tr>
-                            <tr>
-                                <td>Hosting Requirements</td>
-                                <td>Linux hosting with PHP 7.4+ and MySQL 5.7+</td>
-                            </tr>
-                            <tr>
-                                <td>Supported Browsers</td>
-                                <td>Chrome, Firefox, Safari, Edge, Opera</td>
-                            </tr>
-                            <tr>
-                                <td>Mobile Compatibility</td>
-                                <td>Fully responsive for all devices</td>
-                            </tr>
-                            <tr>
-                                <td>Payment Gateways</td>
-                                <td>Stripe, PayPal, Authorize.net (others available)</td>
-                            </tr>
-                            <tr>
-                                <td>Security Features</td>
-                                <td>SSL, PCI compliance, data encryption</td>
-                            </tr>
-                            <tr>
-                                <td>API Access</td>
-                                <td>RESTful API for integration</td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="support" role="tabpanel">
-                        <h4>Comprehensive Support Package</h4>
-                        <p>We provide complete support to ensure your marketplace runs smoothly:</p>
                         
-                        <div class="mb-4">
-                            <h5><i class="fas fa-headset me-2 text-primary"></i> Customer Support</h5>
-                            <p>24/5 email and ticket support with 12-hour response time. Emergency support available for critical issues.</p>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <h5><i class="fas fa-book me-2 text-primary"></i> Documentation</h5>
-                            <p>Comprehensive user guides, admin manuals, and developer documentation included.</p>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <h5><i class="fas fa-sync-alt me-2 text-primary"></i> Updates</h5>
-                            <p>Regular security updates and feature enhancements for one year included with purchase.</p>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <h5><i class="fas fa-graduation-cap me-2 text-primary"></i> Training</h5>
-                            <p>Two hours of online training session to get your team up to speed with the platform.</p>
+                        <div class="product-actions">
+                            <a href="#pricing" class="btn-premium">View Pricing Plans</a>
+                            <a href="#" class="btn-outline-premium">Request Demo</a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-4">
-                <div class="card border-0 shadow-sm mb-4 bg-dark">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3"><i class="fas fa-tags me-2 text-primary"></i> Package Includes</h5>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> Complete marketplace software</li>
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> Installation service</li>
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> Basic customization</li>
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> Payment gateway setup</li>
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> 1 year of updates</li>
-                            <li class="list-group-item border-0 px-0 py-2"><i class="fas fa-check text-success me-2"></i> 6 months support</li>
+        </section>
+        <!-- Premium Subscription Section -->
+        <section class="premium-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Unlock Premium Features</h2>
+                    <p>Choose the perfect plan that fits your business needs. Upgrade, downgrade, or cancel anytime with our flexible subscription options.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="pricing-tabs">
+                        <div class="pricing-tab active" data-period="monthly">Monthly</div>
+                        <div class="pricing-tab" data-period="yearly">Yearly (Save 20%)</div>
+                    </div>
+                </div>
+
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Starter</h3>
+                            <div class="pricing-price monthly">$19<span>/mo</span></div>
+                            <div class="pricing-price yearly" style="display: none;">$15<span>/mo</span></div>
+                            <span class="pricing-period">billed <span class="monthly">monthly</span><span class="yearly" style="display: none;">yearly</span></span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Access to basic features</li>
+                            <li>10GB storage space</li>
+                            <li>Basic analytics dashboard</li>
+                            <li>Email support</li>
+                            <li>Community access</li>
+                            <li>Up to 5 users</li>
                         </ul>
-                    </div>
-                </div>
-                
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3"><i class="fas fa-cog me-2 text-primary"></i> Additional Services</h5>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="customDesign">
-                                <label class="form-check-label" for="customDesign">
-                                    Custom Design - $499
-                                </label>
-                            </div>
-                            <small class="text-muted">Tailored UI/UX design for your brand</small>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="mobileApp">
-                                <label class="form-check-label" for="mobileApp">
-                                    Mobile App Development - $1,999
-                                </label>
-                            </div>
-                            <small class="text-muted">iOS and Android companion apps</small>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="seoPackage">
-                                <label class="form-check-label" for="seoPackage">
-                                    SEO Package - $299
-                                </label>
-                            </div>
-                            <small class="text-muted">On-page optimization and setup</small>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="extendedSupport">
-                                <label class="form-check-label" for="extendedSupport">
-                                    Extended Support - $199/year
-                                </label>
-                            </div>
-                            <small class="text-muted">Additional year of updates and support</small>
+                        <div class="pricing-button">
+                            <button class="btn-outline-premium">Get Started</button>
                         </div>
                     </div>
-                </div>
-                
-                <div class="demo-request text-center p-4">
-                    <h4 class="text-white mb-3">Need a Demo?</h4>
-                    <p class="text-white mb-4">Schedule a personalized demo to see the platform in action.</p>
-                    <button class="btn btn-light btn-custom">
-                        <i class="fas fa-calendar-alt me-2"></i> Schedule Demo
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Related Products Section -->
-<section class="py-5">
-    <div class="container">
-        <h2 class="section-title text-center mb-5">Related Products</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="related-product-card">
-                    <div class="related-product-img">
-                        <img src="https://images.pexels.com/photos/261579/pexels-photo-261579.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Blog Site">
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">Popular</div>
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Professional</h3>
+                            <div class="pricing-price monthly">$49<span>/mo</span></div>
+                            <div class="pricing-price yearly" style="display: none;">$39<span>/mo</span></div>
+                            <span class="pricing-period">billed <span class="monthly">monthly</span><span class="yearly" style="display: none;">yearly</span></span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>All Starter features</li>
+                            <li>50GB storage space</li>
+                            <li>Advanced analytics</li>
+                            <li>Priority email support</li>
+                            <li>API access</li>
+                            <li>Custom branding</li>
+                            <li>Up to 15 users</li>
+                        </ul>
+                        <div class="pricing-button">
+                            <button class="btn-premium">Get Started</button>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <h5>Blog Platform</h5>
-                        <p class="text-muted">Professional blogging solution with advanced features.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">Enterprise</h3>
+                            <div class="pricing-price monthly">$99<span>/mo</span></div>
+                            <div class="pricing-price yearly" style="display: none;">$79<span>/mo</span></div>
+                            <span class="pricing-period">billed <span class="monthly">monthly</span><span class="yearly" style="display: none;">yearly</span></span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>All Professional features</li>
+                            <li>Unlimited storage</li>
+                            <li>Premium analytics</li>
+                            <li>24/7 phone support</li>
+                            <li>Dedicated account manager</li>
+                            <li>Custom integrations</li>
+                            <li>Unlimited users</li>
+                        </ul>
+                        <div class="pricing-button">
+                            <button class="btn-outline-premium">Get Started</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="related-product-card">
-                    <div class="related-product-img">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="ERP System">
+        </section>
+
+        <!-- Features Comparison Section -->
+        <section class="features-section" id="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Plan Comparison</h2>
+                    <p>See how our plans stack up against each other to find the perfect fit for your needs</p>
+                </div>
+                
+                <table class="feature-table">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Starter</th>
+                            <th>Professional</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Storage Space</td>
+                            <td><i class="fas fa-check feature-check"></i> 10GB</td>
+                            <td><i class="fas fa-check feature-check"></i> 50GB</td>
+                            <td><i class="fas fa-check feature-check"></i> Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Analytics Dashboard</td>
+                            <td><i class="fas fa-check feature-check"></i> Basic</td>
+                            <td><i class="fas fa-check feature-check"></i> Advanced</td>
+                            <td><i class="fas fa-check feature-check"></i> Premium</td>
+                        </tr>
+                        <tr>
+                            <td>API Access</td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-check feature-check"></i> Limited</td>
+                            <td><i class="fas fa-check feature-check"></i> Full Access</td>
+                        </tr>
+                        <tr>
+                            <td>Custom Branding</td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-check feature-check"></i></td>
+                            <td><i class="fas fa-check feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Support</td>
+                            <td>Email</td>
+                            <td>Priority Email</td>
+                            <td>24/7 Phone</td>
+                        </tr>
+                        <tr>
+                            <td>Dedicated Account Manager</td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-check feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Custom Integrations</td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-times feature-x"></i></td>
+                            <td><i class="fas fa-check feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Maximum Users</td>
+                            <td>5</td>
+                            <td>15</td>
+                            <td>Unlimited</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+ <!-- Related Products Section -->
+        <section class="related-products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Related Products</h2>
+                    <p>Discover other powerful solutions from Orbit that can transform your business</p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                             alt="Orbit E-Commerce" 
+                             class="product-image">
+                        <div class="product-info">
+                            <span class="product-category">E-Commerce Solution</span>
+                            <h3 class="product-name">Orbit E-Commerce Platform</h3>
+                            <p class="product-excerpt">
+                                Complete e-commerce solution with built-in inventory management, payment processing, and customer analytics.
+                            </p>
+                            <div class="product-meta">
+                                <div class="product-price">$99<span>/month</span></div>
+                                <a href="product-detail.html" class="view-product">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <h5>ERP System</h5>
-                        <p class="text-muted">Complete business management solution.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                    
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                             alt="Orbit Analytics" 
+                             class="product-image">
+                        <div class="product-info">
+                            <span class="product-category">Business Intelligence</span>
+                            <h3 class="product-name">Orbit Analytics Pro</h3>
+                            <p class="product-excerpt">
+                                Advanced analytics platform with real-time data visualization and predictive insights.
+                            </p>
+                            <div class="product-meta">
+                                <div class="product-price">$79<span>/month</span></div>
+                                <a href="product-detail.html" class="view-product">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                             alt="Orbit CRM" 
+                             class="product-image">
+                        <div class="product-info">
+                            <span class="product-category">Customer Relationship</span>
+                            <h3 class="product-name">Orbit CRM Enterprise</h3>
+                            <p class="product-excerpt">
+                                Comprehensive customer relationship management with marketing automation and sales tracking.
+                            </p>
+                            <div class="product-meta">
+                                <div class="product-price">$129<span>/month</span></div>
+                                <a href="product-detail.html" class="view-product">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+
+        <!-- [Rest of your existing sections remain unchanged] -->
+
+        <!-- JS for Related Products Interaction -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Related products hover effect enhancement
+                const productCards = document.querySelectorAll('.product-card');
+                
+                productCards.forEach(card => {
+                    card.addEventListener('mouseenter', function() {
+                        this.querySelector('.view-product i').style.transform = 'translateX(5px)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.querySelector('.view-product i').style.transform = 'translateX(0)';
+                    });
+                });
+                
+                // [Rest of your existing JavaScript remains unchanged]
+            });
+        </script>
+
         <!-- Start Footer Area  -->
         <footer class="rainbow-footer footer-style-default footer-style-3 position-relative">
             <div class="footer-top">
@@ -979,7 +1742,7 @@
                                     <h4 class="title">Services</h4>
                                     <div class="inner">
                                         <ul class="footer-link link-hover">
-                                            <li><a href="service.html">All Services</a></li>
+                                            <li><a href="services.html">All Services</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1080,6 +1843,91 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+     <script>
+        // Pricing Tabs
+        $(document).ready(function() {
+            $('.pricing-tab').click(function() {
+                $('.pricing-tab').removeClass('active');
+                $(this).addClass('active');
+                
+                const period = $(this).data('period');
+                
+                if (period === 'monthly') {
+                    $('.pricing-price.monthly').show();
+                    $('.pricing-price.yearly').hide();
+                    $('.monthly').show();
+                    $('.yearly').hide();
+                } else {
+                    $('.pricing-price.monthly').hide();
+                    $('.pricing-price.yearly').show();
+                    $('.monthly').hide();
+                    $('.yearly').show();
+                }
+            });
+            
+            // FAQ Accordion
+            $('.faq-question').click(function() {
+                $(this).toggleClass('active');
+                $(this).next('.faq-answer').toggleClass('show');
+                
+                // Close other open FAQs
+                $('.faq-question').not(this).removeClass('active');
+                $('.faq-answer').not($(this).next('.faq-answer')).removeClass('show');
+            });
+            
+            // Testimonial Slider
+            $('.testimonial-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: true,
+                variableWidth: true,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            centerMode: false,
+                            variableWidth: false
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+     <!-- JS for Product Image Thumbnail Interaction -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Product image thumbnail interaction
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                const mainImage = document.querySelector('.main-product-image');
+                
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remove active class from all thumbnails
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        
+                        // Add active class to clicked thumbnail
+                        this.classList.add('active');
+                        
+                        // Update main image source
+                        const newSrc = this.src.replace('/300/', '/1470/');
+                        mainImage.src = newSrc;
+                        
+                        // Add slight animation to main image
+                        mainImage.style.opacity = '0';
+                        setTimeout(() => {
+                            mainImage.style.opacity = '1';
+                            mainImage.style.transition = 'opacity 0.3s ease';
+                        }, 100);
+                    });
+                });
+                
+                // [Rest of your existing JavaScript remains unchanged]
+            });
+        </script>
 
 </body>
 
